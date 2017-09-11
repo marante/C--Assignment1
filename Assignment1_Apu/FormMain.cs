@@ -1,24 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Assignment1_Apu.Enums;
+﻿using Assignment1_Apu.Enums;
 using Assignment1_Apu.Models;
-using Assignment1_Apu.HelperMethods;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Assignment1_Apu
 {
     public partial class FormMain : Form
     {
-        CookBook cookBook = new CookBook();
-        List<Ingredient> ingredients = new List<Ingredient>();
+        private readonly CookBook _cookBook = new CookBook();
+        private List<Ingredient> _ingredients = new List<Ingredient>();
 
         public FormMain()
         {
@@ -53,9 +45,9 @@ namespace Assignment1_Apu
         /// <param name="e"></param>
         private void BtnEditRecipe_Click(object sender, EventArgs e)
         {
-          IfNoItemSelected();
-          FormIngredient ingredientForm = new FormIngredient(this, (Recipe) RecipeListbox.SelectedItem);
-          ingredientForm.Show();
+            IfNoItemSelected();
+            FormIngredient ingredientForm = new FormIngredient(this, (Recipe)RecipeListbox.SelectedItem);
+            ingredientForm.Show();
         }
 
         /// <summary>
@@ -66,15 +58,15 @@ namespace Assignment1_Apu
         private void BtnDeleteRecipe_Click(object sender, EventArgs e)
         {
             IfNoItemSelected();
-            var selRecipe = (Recipe) RecipeListbox.SelectedItem;
+            var selRecipe = (Recipe)RecipeListbox.SelectedItem;
             RecipeListbox.Items.Remove(RecipeListbox.SelectedItem);
-            cookBook.Recipes.Remove(selRecipe);
+            _cookBook.Recipes.Remove(selRecipe);
         }
 
         /// <summary>
         /// Appends items to the Recipelist.
         /// </summary>
-        void UpdateCookBook(Recipe rec)
+        private void UpdateCookBook(Recipe rec)
         {
             RecipeListbox.Items.Add(rec);
         }
@@ -82,7 +74,7 @@ namespace Assignment1_Apu
         /// <summary>
         /// Method for clearing the inputs when a recipe is added.
         /// </summary>
-        void ClearForm()
+        private void ClearForm()
         {
             RecipeNameTextBox.Clear();
             RecipeTextbox.Clear();
@@ -90,24 +82,24 @@ namespace Assignment1_Apu
 
         public void SendIngredients(List<Ingredient> ingredientList)
         {
-            ingredients = ingredientList;
+            _ingredients = ingredientList;
         }
 
-        void AddRecipe()
+        private void AddRecipe()
         {
             // Initializing an instance of recipe.
             Recipe recipe = new Recipe()
             {
                 Name = RecipeNameTextBox.Text,
                 Description = RecipeTextbox.Text,
-                NumOfIngredients = ingredients.Count(),
+                NumOfIngredients = _ingredients.Count(),
                 Dish = (Dish)RecipeDropdownCategory.SelectedIndex,
                 MealType = (MealType)MealTypeDropdownList.SelectedIndex,
-                Ingredients = ingredients
+                Ingredients = _ingredients
             };
 
             // Adding the recipe to the cookbook and updating the Recipe list
-            cookBook.Recipes.Add(recipe);
+            _cookBook.Recipes.Add(recipe);
             UpdateCookBook(recipe);
             ClearForm();
         }
@@ -116,12 +108,11 @@ namespace Assignment1_Apu
         /// <summary>
         /// Validation for when users try to delete/edit when nothing is selected.
         /// </summary>
-        void IfNoItemSelected()
+        private void IfNoItemSelected()
         {
             if (RecipeListbox.SelectedItem == null)
             {
                 MessageBox.Show("Fix exception that comes after mbox");
-                return;
             }
         }
     }

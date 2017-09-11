@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assignment1_Apu
 {
     public partial class FormIngredient : Form
     {
-        List<Ingredient> ingredients = new List<Ingredient>();
-        FormMain mainForm = null;
-        Recipe recipe = null;
+        private readonly List<Ingredient> _ingredients = new List<Ingredient>();
+        private readonly FormMain _mainForm = null;
+        private readonly Recipe _recipe = null;
         public FormIngredient()
         {
             InitializeComponent();
@@ -23,17 +17,18 @@ namespace Assignment1_Apu
         public FormIngredient(FormMain mainForm)
         {
             InitializeComponent();
+            _mainForm = mainForm;
         }
 
         public FormIngredient(FormMain mainForm, Recipe recipe)
         {
             InitializeComponent();
-            this.mainForm = mainForm;
-            this.recipe = recipe;
+            _mainForm = mainForm;
+            _recipe = recipe;
 
-            foreach (var ingredient in recipe.Ingredients)
+            foreach (var ingredient in _recipe.Ingredients)
             {
-                ingredients.Add(ingredient);
+                _ingredients.Add(ingredient);
                 IngredientListBox.Items.Add(ingredient);
             }
 
@@ -49,7 +44,7 @@ namespace Assignment1_Apu
 
         private void BtnIngredientOk_Click(object sender, EventArgs e)
         {
-            this.mainForm.SendIngredients(ingredients);
+            this._mainForm.SendIngredients(_ingredients);
             this.Close();
         }
 
@@ -60,9 +55,9 @@ namespace Assignment1_Apu
 
         private void BtnIngredientDelete_Click(object sender, EventArgs e)
         {
-            var selIngredient = (Ingredient) IngredientListBox.SelectedItem;
+            var selIngredient = (Ingredient)IngredientListBox.SelectedItem;
             IngredientListBox.Items.Remove(IngredientListBox.SelectedItem);
-            ingredients.Remove(selIngredient);
+            _ingredients.Remove(selIngredient);
         }
 
         private void BtnIngredientAdd_Click(object sender, EventArgs e)
@@ -84,7 +79,7 @@ namespace Assignment1_Apu
                 Name = ingredientTextbox.Text
             };
             IngredientListBox.Items.Add(ingredient);
-            ingredients.Add(ingredient);
+            _ingredients.Add(ingredient);
         }
 
         private void btnChangePortionValues_Click(object sender, EventArgs e)
