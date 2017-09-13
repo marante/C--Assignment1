@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assignment1_Apu
+﻿namespace Assignment1_Apu
 {
     /// <summary>
     /// Ingredient model
@@ -14,6 +8,6 @@ namespace Assignment1_Apu
         public string Name { get; set; }
         public float Amount { get; set; }
 
-        public string DisplayIngredient => $"{Amount} {Name}";
+        public string DisplayIngredient => $"{Amount} \t {Name}";
     }
 }

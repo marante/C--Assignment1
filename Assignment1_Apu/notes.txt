@@ -1,0 +1,11 @@
+﻿***************
+
+
+Shit to fix
+
+1. Editing recipe ingredients doesn't save it into the object, just changes it for the given window.
+2. Validation for everything basicly.
+3. Portions for a given amount of people doesn't work. Changes it for the next time you open up a window.
+
+
+***************

@@ -178,7 +178,7 @@
             this.btnChangePortionValues.TabIndex = 14;
             this.btnChangePortionValues.Text = "Change portion";
             this.btnChangePortionValues.UseVisualStyleBackColor = true;
-            this.btnChangePortionValues.Click += new System.EventHandler(this.btnChangePortionValues_Click);
+            this.btnChangePortionValues.Click += new System.EventHandler(this.BtnChangePortionValues_Click);
             // 
             // FormIngredient
             // 

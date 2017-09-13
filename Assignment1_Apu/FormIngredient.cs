@@ -7,8 +7,7 @@ namespace Assignment1_Apu
     public partial class FormIngredient : Form
     {
         private readonly List<Ingredient> _ingredients = new List<Ingredient>();
-        private readonly FormMain _mainForm = null;
-        private readonly Recipe _recipe = null;
+        private readonly FormMain _mainForm;
         public FormIngredient()
         {
             InitializeComponent();
@@ -24,9 +23,9 @@ namespace Assignment1_Apu
         {
             InitializeComponent();
             _mainForm = mainForm;
-            _recipe = recipe;
+            Recipe rec = recipe;
 
-            foreach (var ingredient in _recipe.Ingredients)
+            foreach (var ingredient in rec.Ingredients)
             {
                 _ingredients.Add(ingredient);
                 IngredientListBox.Items.Add(ingredient);
@@ -44,13 +43,18 @@ namespace Assignment1_Apu
 
         private void BtnIngredientOk_Click(object sender, EventArgs e)
         {
-            this._mainForm.SendIngredients(_ingredients);
-            this.Close();
+            _mainForm.SendIngredients(_ingredients);
+            Close();
         }
 
+        /// <summary>
+        /// Method that cancels the current form, without saving.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnIngredientCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void BtnIngredientDelete_Click(object sender, EventArgs e)
@@ -60,9 +64,22 @@ namespace Assignment1_Apu
             _ingredients.Remove(selIngredient);
         }
 
+        /// <summary>
+        /// Method for adding ingredients.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnIngredientAdd_Click(object sender, EventArgs e)
         {
             AddIngredient();
+            ClearForm();
+        }
+
+        /// <summary>
+        /// Just a method for clearing the inputfields.
+        /// </summary>
+        private void ClearForm()
+        {
             ingredientTextbox.Text = "";
             IngredientAmount.Text = "";
         }
@@ -70,7 +87,6 @@ namespace Assignment1_Apu
         /// <summary>
         /// Method for appending items, formatted, to the ingredientlist.
         /// </summary>
-        /// <param name="rec"></param>
         void AddIngredient()
         {
             var ingredient = new Ingredient()
@@ -82,22 +98,15 @@ namespace Assignment1_Apu
             _ingredients.Add(ingredient);
         }
 
-        private void btnChangePortionValues_Click(object sender, EventArgs e)
+        private void BtnChangePortionValues_Click(object sender, EventArgs e)
         {
-            float portions = float.Parse(cmbAmountOfPortions.SelectedItem.ToString());
+            var portions = float.Parse(cmbAmountOfPortions.SelectedItem.ToString());
             foreach (Ingredient ingredient in IngredientListBox.Items)
             {
-                if (portions < 0)
-                {
-                    portions = 1;
-                }
-                else
-                {
-                    portions = float.Parse(cmbAmountOfPortions.SelectedItem.ToString());
-                }
+                portions = portions < 0 ? 1 : float.Parse(cmbAmountOfPortions.SelectedItem.ToString());
                 ingredient.Amount = (ingredient.Amount * portions);
             }
-            this.IngredientListBox.Refresh();
+            IngredientListBox.Refresh();
         }
     }
 }

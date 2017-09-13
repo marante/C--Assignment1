@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using Assignment1_Apu.Enums;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assignment1_Apu.Enums;
 
 namespace Assignment1_Apu
 {
@@ -20,6 +15,6 @@ namespace Assignment1_Apu
         public Dish Dish { get; set; }
         public MealType MealType { get; set; }
 
-        public string DisplayString => $"{Name} {NumOfIngredients} {MealType} {Dish} {Description}";
+        public string DisplayString => $"{Name} \t\t\t {NumOfIngredients} \t {MealType} \t {Dish} \t {Description}";
     }
 }

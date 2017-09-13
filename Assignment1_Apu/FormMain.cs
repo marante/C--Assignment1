@@ -45,7 +45,8 @@ namespace Assignment1_Apu
         /// <param name="e"></param>
         private void BtnEditRecipe_Click(object sender, EventArgs e)
         {
-            IfNoItemSelected();
+            // TODO Fix validation method
+            //IfNoItemSelected();
             FormIngredient ingredientForm = new FormIngredient(this, (Recipe)RecipeListbox.SelectedItem);
             ingredientForm.Show();
         }
@@ -57,18 +58,11 @@ namespace Assignment1_Apu
         /// <param name="e"></param>
         private void BtnDeleteRecipe_Click(object sender, EventArgs e)
         {
-            IfNoItemSelected();
+            // TODO Fix validation method
+            //IfNoItemSelected();
             var selRecipe = (Recipe)RecipeListbox.SelectedItem;
             RecipeListbox.Items.Remove(RecipeListbox.SelectedItem);
             _cookBook.Recipes.Remove(selRecipe);
-        }
-
-        /// <summary>
-        /// Appends items to the Recipelist.
-        /// </summary>
-        private void UpdateCookBook(Recipe rec)
-        {
-            RecipeListbox.Items.Add(rec);
         }
 
         /// <summary>
@@ -85,6 +79,9 @@ namespace Assignment1_Apu
             _ingredients = ingredientList;
         }
 
+        /// <summary>
+        /// Method that adds a recipe the cookbook object and displays it in a listbox.
+        /// </summary>
         private void AddRecipe()
         {
             // Initializing an instance of recipe.
@@ -100,11 +97,11 @@ namespace Assignment1_Apu
 
             // Adding the recipe to the cookbook and updating the Recipe list
             _cookBook.Recipes.Add(recipe);
-            UpdateCookBook(recipe);
+            RecipeListbox.Items.Add(recipe);
             ClearForm();
         }
 
-        // TODO Kolla om detta funkar, vet inte riktigt..
+        // TODO Fix method, exception makes program crash, not good...
         /// <summary>
         /// Validation for when users try to delete/edit when nothing is selected.
         /// </summary>
